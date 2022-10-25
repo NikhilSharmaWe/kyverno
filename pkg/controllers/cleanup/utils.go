@@ -8,7 +8,6 @@ import (
 	kyvernov1 "github.com/kyverno/kyverno/api/kyverno/v1"
 	"github.com/kyverno/kyverno/pkg/clients/dclient"
 	"github.com/kyverno/kyverno/pkg/config"
-	rbacv1 "k8s.io/api/rbac/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/kubernetes/pkg/apis/batch"
@@ -145,54 +144,19 @@ func getCronJobForTriggerResource(rule kyvernov1.Rule, trigger *unstructured.Uns
 	return cronjob
 }
 
-func getRoleAndRoleBinding(rule kyvernov1.Rule, trigger *unstructured.Unstructured) (*rbacv1.Role, *rbacv1.RoleBinding) {
-	role := &rbacv1.Role{
-		ObjectMeta: metav1.ObjectMeta{
-			Name:      trigger.GetName(),
-			Namespace: trigger.GetNamespace(),
-			OwnerReferences: []metav1.OwnerReference{
-				{
-					APIVersion: trigger.GetAPIVersion(),
-					Kind:       trigger.GetKind(),
-					Name:       trigger.GetName(),
-					UID:        trigger.GetUID(),
-				},
-			},
-		},
-		Rules: []rbacv1.PolicyRule{
-			{
-				Verbs:     []string{"delete"},
-				APIGroups: []string{""},
-				Resources: []string{fmt.Sprint(strings.ToLower(trigger.GetKind()), "s")},
-			},
+func getPolicyToCheck(rule kyvernov1.Rule, namespace string) kyvernov1.PolicyInterface {
+	polSpec := kyvernov1.Spec{
+		Rules: []kyvernov1.Rule{
+			rule,
 		},
 	}
-
-	rolebinding := &rbacv1.RoleBinding{
-		ObjectMeta: metav1.ObjectMeta{
-			Name:      trigger.GetName(),
-			Namespace: trigger.GetNamespace(),
-			OwnerReferences: []metav1.OwnerReference{
-				{
-					APIVersion: trigger.GetAPIVersion(),
-					Kind:       trigger.GetKind(),
-					Name:       trigger.GetName(),
-					UID:        trigger.GetUID(),
-				},
-			},
-		},
-		Subjects: []rbacv1.Subject{
-			{
-				Kind: "ServiceAccount",
-				Name: config.KyvernoServiceAccountName(),
-			},
-		},
-		RoleRef: rbacv1.RoleRef{
-			Kind:     "Role",
-			Name:     trigger.GetName(),
-			APIGroup: "rbac.authorization.k8s.io",
-		},
+	if namespace != "" {
+		return &kyvernov1.ClusterPolicy{
+			Spec: polSpec,
+		}
+	} else {
+		return &kyvernov1.Policy{
+			Spec: polSpec,
+		}
 	}
-
-	return role, rolebinding
 }

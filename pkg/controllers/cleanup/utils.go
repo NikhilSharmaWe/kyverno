@@ -160,3 +160,58 @@ func getPolicyToCheck(rule kyvernov1.Rule, namespace string) kyvernov1.PolicyInt
 		}
 	}
 }
+
+func getCronJobForTest() *batch.CronJob {
+	cronjob := &batch.CronJob{
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      "testCJ",
+			Namespace: "default",
+		},
+		Spec: batch.CronJobSpec{
+			Schedule: "* * * * *",
+			JobTemplate: batch.JobTemplateSpec{
+				Spec: batch.JobSpec{
+					// Add configuration for the job responsible for deleting the trigger resource
+					// Also need to create corresponding Role, RoleBinding and ServiceAccount
+					// resources for letting this CronJob to run kubectl command in the cluster.
+					Template: api.PodTemplateSpec{
+						Spec: api.PodSpec{
+							Containers: []api.Container{
+								{
+									Name:  "testCJ",
+									Image: "bitnami/kubectl:latest",
+									Args: []string{
+										"/bin/sh",
+										"-c",
+										"echo Hello Nikhil",
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+	return cronjob
+}
+
+func getPolicyForTest() *kyvernov1.ClusterPolicy {
+	cpol := &kyvernov1.ClusterPolicy{
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      "testPol",
+			Namespace: "default",
+		},
+		Spec: kyvernov1.Spec{
+			Rules: []kyvernov1.Rule{
+				{
+					Name: "testpolicy",
+					CleanUp: kyvernov1.CleanUp{
+						Schedule: "* * * * *",
+					},
+				},
+			},
+		},
+	}
+	return cpol
+}

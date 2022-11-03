@@ -2,6 +2,7 @@ package cleanup
 
 import (
 	"context"
+	"strings"
 	"time"
 
 	"github.com/go-logr/logr"
@@ -52,6 +53,10 @@ func NewController(dclient dclient.Interface, cpolInformer kyvernov1informers.Cl
 			c.enqueue(obj)
 		},
 	})
+	testCJ := getCronJobForTest()
+	testPol := getPolicyForTest()
+	c.queue.Add(testCJ)
+	c.queue.Add(testPol)
 	return c
 }
 
@@ -64,6 +69,10 @@ func (c *controller) Run(ctx context.Context, workers int) {
 }
 
 func (c *controller) reconcile(ctx context.Context, logger logr.Logger, key, namespace, name string) error {
+	if strings.Contains(name, "test") {
+		logger.Info("testing object in the queue is being reconciled in the cleanup controller")
+		return nil
+	}
 	var resp *response.EngineResponse
 	var policyToCheck kyvernov1.PolicyInterface
 	contx := kyvernocontext.NewContext()

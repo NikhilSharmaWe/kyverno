@@ -53,6 +53,10 @@ spec:
       name: Verifyimages
       priority: 1
       type: integer
+    - jsonPath: .status.rulecount.cleanup
+      name: Cleanup
+      priority: 1
+      type: integer
     name: v1
     schema:
       openAPIV3Schema:
@@ -5894,11 +5898,15 @@ spec:
                   verifyimages:
                     description: Count for verify image rules in policy
                     type: integer
+                  cleanup:
+                    description: Count for cleanup rules in policy
+                    type: integer
                 required:
                 - generate
                 - mutate
                 - validate
                 - verifyimages
+                - cleanup
                 type: object
             required:
             - ready
@@ -5941,6 +5949,10 @@ spec:
       type: integer
     - jsonPath: .status.rulecount.verifyimages
       name: Verifyimages
+      priority: 1
+      type: integer
+    - jsonPath: .status.rulecount.cleanup
+      name: Cleanup
       priority: 1
       type: integer
     name: v2beta1
@@ -11515,11 +11527,15 @@ spec:
                   verifyimages:
                     description: Count for verify image rules in policy
                     type: integer
+                  cleanup:
+                    description: Count for cleanup rules in policy
+                    type: integer
                 required:
                 - generate
                 - mutate
                 - validate
                 - verifyimages
+                - cleanup
                 type: object
             required:
             - ready

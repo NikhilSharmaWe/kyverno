@@ -46,6 +46,8 @@ type RuleCountStatus struct {
 	Mutate int `json:"mutate" yaml:"mutate"`
 	// Count for verify image rules in policy
 	VerifyImages int `json:"verifyimages" yaml:"verifyimages"`
+	// Count for verify image rules in policy
+	Cleanup int `json:"cleanup" yaml:"cleanup"`
 }
 
 func (status *PolicyStatus) SetReady(ready bool) {

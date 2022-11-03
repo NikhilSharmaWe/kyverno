@@ -25,11 +25,7 @@ import (
 	"github.com/kyverno/kyverno/pkg/utils"
 	kubeutils "github.com/kyverno/kyverno/pkg/utils/kube"
 	"github.com/pkg/errors"
-<<<<<<< HEAD
-=======
 	"github.com/robfig/cron/v3"
-	admissionv1 "k8s.io/api/admission/v1"
->>>>>>> add cleanup controller
 	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/sets"

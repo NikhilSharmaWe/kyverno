@@ -74,7 +74,7 @@ func objectMeta(name string, owner ...metav1.OwnerReference) metav1.ObjectMeta {
 }
 
 func setRuleCount(rules []kyvernov1.Rule, status *kyvernov1.PolicyStatus) {
-	validateCount, generateCount, mutateCount, verifyImagesCount := 0, 0, 0, 0
+	validateCount, generateCount, mutateCount, verifyImagesCount, cleanupCount := 0, 0, 0, 0, 0
 	for _, rule := range rules {
 		if !strings.HasPrefix(rule.Name, "autogen-") {
 			if rule.HasGenerate() {
@@ -89,10 +89,14 @@ func setRuleCount(rules []kyvernov1.Rule, status *kyvernov1.PolicyStatus) {
 			if rule.HasVerifyImages() {
 				verifyImagesCount += 1
 			}
+			if rule.HasCleanUp() {
+				cleanupCount += 1
+			}
 		}
 	}
 	status.RuleCount.Validate = validateCount
 	status.RuleCount.Generate = generateCount
 	status.RuleCount.Mutate = mutateCount
 	status.RuleCount.VerifyImages = verifyImagesCount
+	status.RuleCount.Cleanup = cleanupCount
 }

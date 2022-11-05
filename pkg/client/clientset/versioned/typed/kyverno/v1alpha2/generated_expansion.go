@@ -22,6 +22,10 @@ type AdmissionReportExpansion interface{}
 
 type BackgroundScanReportExpansion interface{}
 
+type CleanupPolicyExpansion interface{}
+
 type ClusterAdmissionReportExpansion interface{}
 
 type ClusterBackgroundScanReportExpansion interface{}
+
+type ClusterCleanupPolicyExpansion interface{}

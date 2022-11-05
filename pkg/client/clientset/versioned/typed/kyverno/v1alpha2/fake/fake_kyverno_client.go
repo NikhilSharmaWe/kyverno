@@ -36,12 +36,20 @@ func (c *FakeKyvernoV1alpha2) BackgroundScanReports(namespace string) v1alpha2.B
 	return &FakeBackgroundScanReports{c, namespace}
 }
 
+func (c *FakeKyvernoV1alpha2) CleanupPolicies(namespace string) v1alpha2.CleanupPolicyInterface {
+	return &FakeCleanupPolicies{c, namespace}
+}
+
 func (c *FakeKyvernoV1alpha2) ClusterAdmissionReports() v1alpha2.ClusterAdmissionReportInterface {
 	return &FakeClusterAdmissionReports{c}
 }
 
 func (c *FakeKyvernoV1alpha2) ClusterBackgroundScanReports() v1alpha2.ClusterBackgroundScanReportInterface {
 	return &FakeClusterBackgroundScanReports{c}
+}
+
+func (c *FakeKyvernoV1alpha2) ClusterCleanupPolicies() v1alpha2.ClusterCleanupPolicyInterface {
+	return &FakeClusterCleanupPolicies{c}
 }
 
 // RESTClient returns a RESTClient that is used to communicate

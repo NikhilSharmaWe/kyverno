@@ -122,3 +122,56 @@ func ListClient[T any](recorder Recorder, inner controllerutils.ListClient[T]) c
 		inner:    inner,
 	}
 }
+
+type objectStatusClient[T metav1.Object] struct {
+	recorder Recorder
+	inner    controllerutils.ObjectStatusClient[T]
+}
+
+func (c *objectStatusClient[T]) Create(ctx context.Context, obj T, opts metav1.CreateOptions) (T, error) {
+	defer c.recorder.Record(ClientCreate)
+	return c.inner.Create(ctx, obj, opts)
+}
+
+func (c *objectStatusClient[T]) Update(ctx context.Context, obj T, opts metav1.UpdateOptions) (T, error) {
+	defer c.recorder.Record(ClientUpdate)
+	return c.inner.Update(ctx, obj, opts)
+}
+
+func (c *objectStatusClient[T]) Delete(ctx context.Context, name string, opts metav1.DeleteOptions) error {
+	defer c.recorder.Record(ClientDelete)
+	return c.inner.Delete(ctx, name, opts)
+}
+
+func (c *objectStatusClient[T]) DeleteCollection(ctx context.Context, opts metav1.DeleteOptions, listOpts metav1.ListOptions) error {
+	defer c.recorder.Record(ClientDeleteCollection)
+	return c.inner.DeleteCollection(ctx, opts, listOpts)
+}
+
+func (c *objectStatusClient[T]) Get(ctx context.Context, name string, opts metav1.GetOptions) (T, error) {
+	defer c.recorder.Record(ClientGet)
+	return c.inner.Get(ctx, name, opts)
+}
+
+func (c *objectStatusClient[T]) Watch(ctx context.Context, opts metav1.ListOptions) (watch.Interface, error) {
+	defer c.recorder.Record(ClientUpdate)
+	return c.inner.Watch(ctx, opts)
+}
+
+func (c *objectStatusClient[T]) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (T, error) {
+	defer c.recorder.Record(ClientPatch)
+	return c.inner.Patch(ctx, name, pt, data, opts, subresources...)
+}
+
+func (c *objectStatusClient[T]) UpdateStatus(ctx context.Context, obj T, opts metav1.UpdateOptions) (T, error) {
+	defer c.recorder.Record(ClientUpdateStatus)
+	return c.inner.UpdateStatus(ctx, obj, opts)
+}
+
+func ObjectStatusClient[T metav1.Object](recorder Recorder, inner controllerutils.ObjectStatusClient[T],
+) controllerutils.ObjectStatusClient[T] {
+	return &objectStatusClient[T]{
+		recorder: recorder,
+		inner:    inner,
+	}
+}

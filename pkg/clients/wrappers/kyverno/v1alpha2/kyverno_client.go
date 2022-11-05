@@ -57,6 +57,29 @@ func (c *client) BackgroundScanReports(namespace string) v1alpha2.BackgroundScan
 	}
 }
 
+func (c *client) CleanupPolicies(namespace string) v1alpha2.CleanupPolicyInterface {
+	recorder := metrics.NamespacedClientQueryRecorder(c.metrics, namespace, "CleanupPolicy", metrics.KyvernoClient)
+	return struct {
+		controllerutils.ObjectStatusClient[*kyvernov1alpha2.CleanupPolicy]
+		controllerutils.ListClient[*kyvernov1alpha2.CleanupPolicyList]
+	}{
+		metrics.ObjectStatusClient[*kyvernov1alpha2.CleanupPolicy](recorder, c.inner.CleanupPolicies(namespace)),
+		metrics.ListClient[*kyvernov1alpha2.CleanupPolicyList](recorder, c.inner.CleanupPolicies(namespace)),
+	}
+
+}
+
+func (c *client) ClusterCleanupPolicies() v1alpha2.ClusterCleanupPolicyInterface {
+	recorder := metrics.NamespacedClientQueryRecorder(c.metrics, "", "CleanupPolicy", metrics.KyvernoClient)
+	return struct {
+		controllerutils.ObjectStatusClient[*kyvernov1alpha2.ClusterCleanupPolicy]
+		controllerutils.ListClient[*kyvernov1alpha2.ClusterCleanupPolicyList]
+	}{
+		metrics.ObjectStatusClient[*kyvernov1alpha2.ClusterCleanupPolicy](recorder, c.inner.ClusterCleanupPolicies()),
+		metrics.ListClient[*kyvernov1alpha2.ClusterCleanupPolicyList](recorder, c.inner.ClusterCleanupPolicies()),
+	}
+}
+
 func (c *client) RESTClient() rest.Interface {
 	return c.inner.RESTClient()
 }

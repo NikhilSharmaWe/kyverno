@@ -54,10 +54,14 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&AdmissionReportList{},
 		&BackgroundScanReport{},
 		&BackgroundScanReportList{},
+		&CleanupPolicy{},
+		&CleanupPolicyList{},
 		&ClusterAdmissionReport{},
 		&ClusterAdmissionReportList{},
 		&ClusterBackgroundScanReport{},
 		&ClusterBackgroundScanReportList{},
+		&ClusterCleanupPolicy{},
+		&ClusterCleanupPolicyList{},
 	)
 	metav1.AddToGroupVersion(scheme, SchemeGroupVersion)
 	return nil

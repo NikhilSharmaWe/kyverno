@@ -30,8 +30,10 @@ type KyvernoV1alpha2Interface interface {
 	RESTClient() rest.Interface
 	AdmissionReportsGetter
 	BackgroundScanReportsGetter
+	CleanupPoliciesGetter
 	ClusterAdmissionReportsGetter
 	ClusterBackgroundScanReportsGetter
+	ClusterCleanupPoliciesGetter
 }
 
 // KyvernoV1alpha2Client is used to interact with features provided by the kyverno.io group.
@@ -47,12 +49,20 @@ func (c *KyvernoV1alpha2Client) BackgroundScanReports(namespace string) Backgrou
 	return newBackgroundScanReports(c, namespace)
 }
 
+func (c *KyvernoV1alpha2Client) CleanupPolicies(namespace string) CleanupPolicyInterface {
+	return newCleanupPolicies(c, namespace)
+}
+
 func (c *KyvernoV1alpha2Client) ClusterAdmissionReports() ClusterAdmissionReportInterface {
 	return newClusterAdmissionReports(c)
 }
 
 func (c *KyvernoV1alpha2Client) ClusterBackgroundScanReports() ClusterBackgroundScanReportInterface {
 	return newClusterBackgroundScanReports(c)
+}
+
+func (c *KyvernoV1alpha2Client) ClusterCleanupPolicies() ClusterCleanupPolicyInterface {
+	return newClusterCleanupPolicies(c)
 }
 
 // NewForConfig creates a new KyvernoV1alpha2Client for the given config.

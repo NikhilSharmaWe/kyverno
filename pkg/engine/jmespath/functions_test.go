@@ -546,7 +546,6 @@ func Test_LabelMatch(t *testing.T) {
 			assert.Equal(t, result, tc.expectedResult)
 		})
 	}
-
 }
 
 func Test_Add(t *testing.T) {
@@ -1286,7 +1285,6 @@ func Test_SemverCompare(t *testing.T) {
 }
 
 func Test_Items(t *testing.T) {
-
 	testCases := []struct {
 		object         string
 		keyName        string
@@ -1315,7 +1313,6 @@ func Test_Items(t *testing.T) {
 
 	for i, tc := range testCases {
 		t.Run(fmt.Sprintf("case %d", i), func(t *testing.T) {
-
 			query, err := New("items(`" + tc.object + "`,`" + tc.keyName + "`,`" + tc.valName + "`)")
 			assert.NilError(t, err)
 
@@ -1332,11 +1329,9 @@ func Test_Items(t *testing.T) {
 			assert.DeepEqual(t, result, resource)
 		})
 	}
-
 }
 
 func Test_ObjectFromLists(t *testing.T) {
-
 	testCases := []struct {
 		keys           string
 		values         string
@@ -1379,7 +1374,6 @@ func Test_ObjectFromLists(t *testing.T) {
 			assert.DeepEqual(t, result, tc.expectedResult)
 		})
 	}
-
 }
 
 func Test_x509Decode(t *testing.T) {

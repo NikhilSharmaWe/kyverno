@@ -9,7 +9,6 @@ import (
 )
 
 func Test_isMatchResourcesAllValid(t *testing.T) {
-
 	tests := []struct {
 		name string
 		rule kyverno.Rule
@@ -80,7 +79,6 @@ func Test_isMatchResourcesAllValid(t *testing.T) {
 }
 
 func Test_fetchUniqueKinds(t *testing.T) {
-
 	tests := []struct {
 		name string
 		rule kyverno.Rule

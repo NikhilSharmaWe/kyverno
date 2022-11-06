@@ -50,7 +50,7 @@ func Test_Validate_Flux_Sets(t *testing.T) {
 		// Clear Namespace
 		By(fmt.Sprintf("Deleting Namespace: \"%s\"", nspace))
 		e2eClient.DeleteClusteredResource(namespaceGVR, nspace)
-		//CleanUp CRDs
+		// CleanUp CRDs
 		e2eClient.DeleteClusteredResource(crdGVR, crdName)
 
 		// Wait Till Deletion of Namespace
@@ -100,10 +100,10 @@ func Test_Validate_Flux_Sets(t *testing.T) {
 			Expect(err).To(HaveOccurred())
 		}
 
-		//CleanUp Resources
+		// CleanUp Resources
 		e2eClient.CleanClusterPolicies(policyGVR)
 
-		//CleanUp CRDs
+		// CleanUp CRDs
 		e2eClient.DeleteClusteredResource(crdGVR, crdName)
 
 		// Clear Namespace

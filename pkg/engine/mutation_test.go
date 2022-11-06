@@ -91,7 +91,8 @@ func Test_VariableSubstitutionPatchStrategicMerge(t *testing.T) {
 	policyContext := &PolicyContext{
 		Policy:      &policy,
 		JSONContext: ctx,
-		NewResource: *resourceUnstructured}
+		NewResource: *resourceUnstructured,
+	}
 	er := Mutate(policyContext)
 	t.Log(string(expectedPatch))
 
@@ -164,7 +165,8 @@ func Test_variableSubstitutionPathNotExist(t *testing.T) {
 	policyContext := &PolicyContext{
 		Policy:      &policy,
 		JSONContext: ctx,
-		NewResource: *resourceUnstructured}
+		NewResource: *resourceUnstructured,
+	}
 	er := Mutate(policyContext)
 	assert.Equal(t, len(er.PolicyResponse.Rules), 1)
 	assert.Assert(t, strings.Contains(er.PolicyResponse.Rules[0].Message, "Unknown key \"name1\" in path"))

@@ -66,7 +66,6 @@ func (c *client) CleanupPolicies(namespace string) v1alpha2.CleanupPolicyInterfa
 		metrics.ObjectStatusClient[*kyvernov1alpha2.CleanupPolicy](recorder, c.inner.CleanupPolicies(namespace)),
 		metrics.ListClient[*kyvernov1alpha2.CleanupPolicyList](recorder, c.inner.CleanupPolicies(namespace)),
 	}
-
 }
 
 func (c *client) ClusterCleanupPolicies() v1alpha2.ClusterCleanupPolicyInterface {

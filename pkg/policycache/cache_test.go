@@ -23,7 +23,7 @@ func unsetPolicy(store store, policy kyvernov1.PolicyInterface) {
 func Test_All(t *testing.T) {
 	pCache := newPolicyCache()
 	policy := newPolicy(t)
-	//add
+	// add
 	setPolicy(pCache, policy)
 	for _, rule := range autogen.ComputeRules(policy) {
 		for _, kind := range rule.MatchResources.Kinds {
@@ -701,6 +701,7 @@ func newGeneratePolicy(t *testing.T) *kyvernov1.ClusterPolicy {
 
 	return policy
 }
+
 func newMutatePolicy(t *testing.T) *kyvernov1.ClusterPolicy {
 	rawPolicy := []byte(`{
 		"metadata": {
@@ -745,6 +746,7 @@ func newMutatePolicy(t *testing.T) *kyvernov1.ClusterPolicy {
 
 	return policy
 }
+
 func newNsMutatePolicy(t *testing.T) kyvernov1.PolicyInterface {
 	rawPolicy := []byte(`{
 		"metadata": {
@@ -902,7 +904,7 @@ func newValidateEnforcePolicy(t *testing.T) *kyvernov1.ClusterPolicy {
 func Test_Ns_All(t *testing.T) {
 	pCache := newPolicyCache()
 	policy := newNsPolicy(t)
-	//add
+	// add
 	setPolicy(pCache, policy)
 	nspace := policy.GetNamespace()
 	for _, rule := range autogen.ComputeRules(policy) {
@@ -1004,7 +1006,7 @@ func Test_Ns_Add_Remove(t *testing.T) {
 func Test_GVk_Cache(t *testing.T) {
 	pCache := newPolicyCache()
 	policy := newGVKPolicy(t)
-	//add
+	// add
 	setPolicy(pCache, policy)
 	for _, rule := range autogen.ComputeRules(policy) {
 		for _, kind := range rule.MatchResources.Kinds {
@@ -1038,7 +1040,7 @@ func Test_Add_Validate_Enforce(t *testing.T) {
 	pCache := newPolicyCache()
 	policy := newUserTestPolicy(t)
 	nspace := policy.GetNamespace()
-	//add
+	// add
 	setPolicy(pCache, policy)
 	for _, rule := range autogen.ComputeRules(policy) {
 		for _, kind := range rule.MatchResources.Kinds {
@@ -1071,7 +1073,7 @@ func Test_Ns_Add_Remove_User(t *testing.T) {
 func Test_Mutate_Policy(t *testing.T) {
 	pCache := newPolicyCache()
 	policy := newMutatePolicy(t)
-	//add
+	// add
 	setPolicy(pCache, policy)
 	setPolicy(pCache, policy)
 	setPolicy(pCache, policy)
@@ -1090,7 +1092,7 @@ func Test_Mutate_Policy(t *testing.T) {
 func Test_Generate_Policy(t *testing.T) {
 	pCache := newPolicyCache()
 	policy := newGeneratePolicy(t)
-	//add
+	// add
 	setPolicy(pCache, policy)
 	for _, rule := range autogen.ComputeRules(policy) {
 		for _, kind := range rule.MatchResources.Kinds {
@@ -1108,7 +1110,7 @@ func Test_NsMutate_Policy(t *testing.T) {
 	pCache := newPolicyCache()
 	policy := newMutatePolicy(t)
 	nspolicy := newNsMutatePolicy(t)
-	//add
+	// add
 	setPolicy(pCache, policy)
 	setPolicy(pCache, nspolicy)
 	setPolicy(pCache, policy)
@@ -1126,7 +1128,6 @@ func Test_NsMutate_Policy(t *testing.T) {
 	if len(nsMutate) != 1 {
 		t.Errorf("expected 1 namespace mutate policy, found %v", len(nsMutate))
 	}
-
 }
 
 func Test_Validate_Enforce_Policy(t *testing.T) {
@@ -1190,7 +1191,6 @@ func Test_Get_Policies(t *testing.T) {
 	if len(generate) != 1 {
 		t.Errorf("expected 1 generate policy, found %v", len(generate))
 	}
-
 }
 
 func Test_Get_Policies_Ns(t *testing.T) {
@@ -1259,5 +1259,4 @@ func Test_Get_Policies_Validate_Failure_Action_Overrides(t *testing.T) {
 	if len(validateEnforce) != 2 {
 		t.Errorf("expected 2 validate enforce policy, found %v", len(validateEnforce))
 	}
-
 }

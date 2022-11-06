@@ -9,7 +9,6 @@ import (
 )
 
 func Test_ValidateMutationPolicy(t *testing.T) {
-
 	tcs := []struct {
 		description string
 		policy      []byte
@@ -57,7 +56,6 @@ func Test_ValidateMutationPolicy(t *testing.T) {
 			t.Errorf("\nTestcase [%v] failed:\nExpected Error:  %v\nGot Error:  %v", i+1, tc.errMessage, errMessage)
 		}
 	}
-
 }
 
 func Test_addDefaultFieldsToSchema(t *testing.T) {
@@ -71,7 +69,6 @@ func Test_matchGVK(t *testing.T) {
 		gvk            string
 		match          bool
 	}{
-
 		{
 			"io.k8s.api.networking.v1.Ingress",
 			"networking.k8s.io/v1/Ingress",

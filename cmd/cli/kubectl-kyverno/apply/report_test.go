@@ -161,7 +161,8 @@ func Test_calculateSummary(t *testing.T) {
 		{Result: preport.PolicyResult(preport.StatusFail)},
 		{
 			Resources: make([]v1.ObjectReference, 1),
-			Result:    preport.PolicyResult(preport.StatusPass)},
+			Result:    preport.PolicyResult(preport.StatusPass),
+		},
 		{
 			Resources: make([]v1.ObjectReference, 4),
 			Result:    preport.PolicyResult(preport.StatusPass),

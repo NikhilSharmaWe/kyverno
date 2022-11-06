@@ -271,5 +271,4 @@ func Test_updateFeildsInSourceAndUpdatedResource(t *testing.T) {
 		assert.Assert(t, reflect.DeepEqual(tc.expectedObj, o))
 		assert.Assert(t, reflect.DeepEqual(tc.expectedNewRes, n))
 	}
-
 }

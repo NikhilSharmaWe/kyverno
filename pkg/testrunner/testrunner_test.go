@@ -26,7 +26,7 @@ func Test_validate_host_PID_IPC(t *testing.T) {
 	testScenario(t, "test/scenarios/samples/best_practices/disallow_host_pid_ipc.yaml")
 }
 
-//TODO: support generate
+// TODO: support generate
 // func Test_add_ns_quota(t *testing.T) {
 // 	testScenario(t, "test/scenarios/samples/best_practices/add_ns_quota.yaml")
 // }

@@ -17,7 +17,6 @@ import (
 )
 
 func TestValidate_failure_action_overrides(t *testing.T) {
-
 	testcases := []struct {
 		rawPolicy   []byte
 		rawResource []byte
@@ -547,7 +546,7 @@ func TestValidate_failure_action_overrides(t *testing.T) {
 }
 
 func Test_RuleSelector(t *testing.T) {
-	var rawPolicy = []byte(`{
+	rawPolicy := []byte(`{
 		"apiVersion": "kyverno.io/v1",
 		"kind": "ClusterPolicy",
 		"metadata": {"name": "check-label-app"},
@@ -574,7 +573,7 @@ func Test_RuleSelector(t *testing.T) {
 		}
 	 }`)
 
-	var rawResource = []byte(`{
+	rawResource := []byte(`{
 		"apiVersion": "v1",
 		"kind": "Pod",
 		"metadata": {"name": "test-pod", "namespace": "", "labels": { "app" : "test-pod" }},

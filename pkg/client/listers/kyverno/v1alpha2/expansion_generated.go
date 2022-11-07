@@ -34,14 +34,6 @@ type BackgroundScanReportListerExpansion interface{}
 // BackgroundScanReportNamespaceLister.
 type BackgroundScanReportNamespaceListerExpansion interface{}
 
-// CleanupPolicyListerExpansion allows custom methods to be added to
-// CleanupPolicyLister.
-type CleanupPolicyListerExpansion interface{}
-
-// CleanupPolicyNamespaceListerExpansion allows custom methods to be added to
-// CleanupPolicyNamespaceLister.
-type CleanupPolicyNamespaceListerExpansion interface{}
-
 // ClusterAdmissionReportListerExpansion allows custom methods to be added to
 // ClusterAdmissionReportLister.
 type ClusterAdmissionReportListerExpansion interface{}
@@ -49,7 +41,3 @@ type ClusterAdmissionReportListerExpansion interface{}
 // ClusterBackgroundScanReportListerExpansion allows custom methods to be added to
 // ClusterBackgroundScanReportLister.
 type ClusterBackgroundScanReportListerExpansion interface{}
-
-// ClusterCleanupPolicyListerExpansion allows custom methods to be added to
-// ClusterCleanupPolicyLister.
-type ClusterCleanupPolicyListerExpansion interface{}

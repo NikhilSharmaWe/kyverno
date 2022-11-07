@@ -525,7 +525,7 @@ spec:
     - jsonPath: .metadata.creationTimestamp
       name: Age
       type: date
-    name: v1alpha2
+    name: v1alpha1
     schema:
       openAPIV3Schema:
         description: CleanupPolicy declares cleanup behaviors for matching resources.
@@ -1966,7 +1966,7 @@ spec:
     - jsonPath: .metadata.creationTimestamp
       name: Age
       type: date
-    name: v1alpha2
+    name: v1alpha1
     schema:
       openAPIV3Schema:
         description: CleanupPolicy declares cleanup behaviors for matching resources.

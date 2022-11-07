@@ -19,34 +19,26 @@ limitations under the License.
 package fake
 
 import (
-	v1alpha2 "github.com/kyverno/kyverno/pkg/client/clientset/versioned/typed/kyverno/v1alpha2"
+	v1alpha1 "github.com/kyverno/kyverno/pkg/client/clientset/versioned/typed/kyverno/v1alpha1"
 	rest "k8s.io/client-go/rest"
 	testing "k8s.io/client-go/testing"
 )
 
-type FakeKyvernoV1alpha2 struct {
+type FakeKyvernoV1alpha1 struct {
 	*testing.Fake
 }
 
-func (c *FakeKyvernoV1alpha2) AdmissionReports(namespace string) v1alpha2.AdmissionReportInterface {
-	return &FakeAdmissionReports{c, namespace}
+func (c *FakeKyvernoV1alpha1) CleanupPolicies(namespace string) v1alpha1.CleanupPolicyInterface {
+	return &FakeCleanupPolicies{c, namespace}
 }
 
-func (c *FakeKyvernoV1alpha2) BackgroundScanReports(namespace string) v1alpha2.BackgroundScanReportInterface {
-	return &FakeBackgroundScanReports{c, namespace}
-}
-
-func (c *FakeKyvernoV1alpha2) ClusterAdmissionReports() v1alpha2.ClusterAdmissionReportInterface {
-	return &FakeClusterAdmissionReports{c}
-}
-
-func (c *FakeKyvernoV1alpha2) ClusterBackgroundScanReports() v1alpha2.ClusterBackgroundScanReportInterface {
-	return &FakeClusterBackgroundScanReports{c}
+func (c *FakeKyvernoV1alpha1) ClusterCleanupPolicies() v1alpha1.ClusterCleanupPolicyInterface {
+	return &FakeClusterCleanupPolicies{c}
 }
 
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
-func (c *FakeKyvernoV1alpha2) RESTClient() rest.Interface {
+func (c *FakeKyvernoV1alpha1) RESTClient() rest.Interface {
 	var ret *rest.RESTClient
 	return ret
 }

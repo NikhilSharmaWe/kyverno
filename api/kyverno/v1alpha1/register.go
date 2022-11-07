@@ -14,10 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-// Package v1alpha2 contains API Schema definitions for the policy v1alpha2 API group
+// Package v1alpha1 contains API Schema definitions for the policy v1alpha1 API group
 // +kubebuilder:object:generate=true
 // +groupName=kyverno.io
-package v1alpha2
+package v1alpha1
 
 import (
 	"github.com/kyverno/kyverno/api/kyverno"
@@ -27,7 +27,7 @@ import (
 )
 
 // SchemeGroupVersion is group version used to register these objects
-var SchemeGroupVersion = schema.GroupVersion{Group: kyverno.GroupName, Version: "v1alpha2"}
+var SchemeGroupVersion = schema.GroupVersion{Group: kyverno.GroupName, Version: "v1alpha1"}
 
 // Kind takes an unqualified kind and returns back a Group qualified GroupKind
 func Kind(kind string) schema.GroupKind {
@@ -50,14 +50,10 @@ var (
 // Adds the list of known types to Scheme.
 func addKnownTypes(scheme *runtime.Scheme) error {
 	scheme.AddKnownTypes(SchemeGroupVersion,
-		&AdmissionReport{},
-		&AdmissionReportList{},
-		&BackgroundScanReport{},
-		&BackgroundScanReportList{},
-		&ClusterAdmissionReport{},
-		&ClusterAdmissionReportList{},
-		&ClusterBackgroundScanReport{},
-		&ClusterBackgroundScanReportList{},
+		&CleanupPolicy{},
+		&CleanupPolicyList{},
+		&ClusterCleanupPolicy{},
+		&ClusterCleanupPolicyList{},
 	)
 	metav1.AddToGroupVersion(scheme, SchemeGroupVersion)
 	return nil

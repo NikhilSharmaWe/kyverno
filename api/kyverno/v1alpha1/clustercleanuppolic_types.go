@@ -14,13 +14,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package v1alpha2
+package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 // +genclient
+// +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
@@ -28,7 +29,7 @@ import (
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
 // CleanupPolicy declares cleanup behaviors for matching resources.
-type CleanupPolicy struct {
+type ClusterCleanupPolicy struct {
 	metav1.TypeMeta   `json:",inline,omitempty"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
@@ -43,9 +44,9 @@ type CleanupPolicy struct {
 // +kubebuilder:object:root=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// CleanupPolicyList is a list of ClusterPolicy instances.
-type CleanupPolicyList struct {
+// ClusterCleanupPolicyList is a list of ClusterCleanupPolicy instances.
+type ClusterCleanupPolicyList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata"`
-	Items           []CleanupPolicy `json:"items"`
+	Items           []ClusterCleanupPolicy `json:"items"`
 }

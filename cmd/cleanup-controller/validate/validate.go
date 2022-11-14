@@ -58,7 +58,7 @@ func (c *Cleanup) CanIDelete(kind, namespace string) error {
 	return nil
 }
 
-// Validate checks the policy and rules declarations for required configurations
+// Validate checks the cleanuppolicy and rule declaration for required configuration
 func ValidateCleanupPolicy(cleanuppolicy kyvernov1alpha1.CleanupPolicyInterface, client dclient.Interface, mock bool, openApiManager openapi.Manager) error {
 	namespace := cleanuppolicy.GetNamespace()
 	var res []*metav1.APIResourceList

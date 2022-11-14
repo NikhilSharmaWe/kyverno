@@ -8,6 +8,8 @@ import (
 
 	"github.com/go-logr/logr"
 	"github.com/julienschmidt/httprouter"
+	"github.com/kyverno/kyverno/cmd/cleanup-controller/logger"
+	"github.com/kyverno/kyverno/pkg/config"
 	"github.com/kyverno/kyverno/pkg/logging"
 	admissionutils "github.com/kyverno/kyverno/pkg/utils/admission"
 	"github.com/kyverno/kyverno/pkg/webhooks/handlers"
@@ -19,6 +21,11 @@ type Server interface {
 	Run(<-chan struct{})
 	// Stop TLS server and returns control after the server is shut down
 	Stop(context.Context)
+}
+
+type CleanupPolicyHandlers interface {
+	// Validate performs the validation check on policy resources
+	Validate(logr.Logger, *admissionv1.AdmissionRequest, time.Time) *admissionv1.AdmissionResponse
 }
 
 type server struct {
@@ -33,6 +40,7 @@ func TODO(logr.Logger, *admissionv1.AdmissionRequest, time.Time) *admissionv1.Ad
 
 // NewServer creates new instance of server accordingly to given configuration
 func NewServer(
+	policyHandlers CleanupPolicyHandlers,
 	tlsProvider TlsProvider,
 ) Server {
 	mux := httprouter.New()
@@ -41,6 +49,12 @@ func NewServer(
 		"/todo",
 		handlers.AdmissionHandler(TODO).
 			WithAdmission(logging.WithName("todo")),
+	)
+	mux.HandlerFunc(
+		"POST",
+		config.PolicyValidatingWebhookServicePath,
+		handlers.AdmissionHandler(policyHandlers.Validate).
+			WithAdmission(logger.Logger.WithName("validate")),
 	)
 	return &server{
 		server: &http.Server{

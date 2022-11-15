@@ -15,6 +15,9 @@ import (
 	admissionv1 "k8s.io/api/admission/v1"
 )
 
+// ValidatingWebhookServicePath is the path for validation webhook
+const ValidatingWebhookServicePath = "/validate"
+
 type Server interface {
 	// Run TLS server in separate thread and returns control immediately
 	Run(<-chan struct{})
